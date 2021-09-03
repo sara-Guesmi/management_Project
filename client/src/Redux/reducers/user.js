@@ -11,7 +11,7 @@ const initialState = {
   user: null,
   isAuth: false,
   loadUser: false,
-  errors: [],
+  errors: null,
 };
 
 const userReducer = (state = initialState, { type, payload }) => {
@@ -56,7 +56,7 @@ const userReducer = (state = initialState, { type, payload }) => {
         isAuth: false,
       };
     case "VIDE_ERRORS":
-      return { ...state, errors: [] };
+      return { ...state, errors: null };
     default:
       return state;
   }

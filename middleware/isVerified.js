@@ -3,6 +3,7 @@ const User = require("../models/User");
 const isVerified = async (req, res, next) => {
   try {
     const { email } = req.body;
+    console.log(email);
     const findUser = await User.findOne({ email });
     if (findUser.verified) {
       next();
@@ -16,7 +17,7 @@ const isVerified = async (req, res, next) => {
       });
     }
   } catch (error) {
-    res.status(400).send({ msg: "a problem accured sorry" });
+    res.status(400).send({ errors: [{ msg: "Bad Credential" }] });
   }
 };
 

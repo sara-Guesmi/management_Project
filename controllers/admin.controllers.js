@@ -4,7 +4,6 @@ exports.ChangeStatus = async (req, res) => {
   try {
     //   get user id clicked
     const { id } = req.params;
-    console.log(id);
     await User.updateOne(
       {
         _id: id,

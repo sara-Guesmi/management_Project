@@ -6,7 +6,7 @@ const jwt = require("jsonwebtoken");
 exports.Signup = async (req, res) => {
   try {
     //   req.body
-    const { name, lastName, email, phone, password } = req.body;
+    const { email, password } = req.body;
 
     // check if the email is not found in the database
     const FoundUser = await User.findOne({ email });
@@ -47,6 +47,7 @@ exports.SignIn = async (req, res) => {
     // check if the send it password is equal to the current Password
     const hashedpass = searchUser.password;
     const result = await bcrypt.compare(password, hashedpass);
+
     if (!result) {
       res.status(400).send({ errors: [{ msg: "Bad Credential" }] });
       return;

@@ -8,6 +8,7 @@ import {
 } from "../constants/user";
 
 import axios from "axios";
+import Notification from "../../Components/Notification/Notification";
 
 export const register = (newUser, history) => async (dispatch) => {
   dispatch({ type: LOAD_USER });
@@ -18,7 +19,6 @@ export const register = (newUser, history) => async (dispatch) => {
     dispatch({ type: REGISTER_USER, payload: result.data }); //msg , token , user
     alert(result.data.msg);
   } catch (error) {
-    error.response.data.errors.map((el) => alert(el.msg));
     dispatch({ type: FAIL_USER, payload: error.response.data.errors });
   }
 };
@@ -31,7 +31,7 @@ export const login = (user, history) => async (dispatch) => {
     dispatch({ type: LOGIN_USER, payload: result.data }); //msg /token , user
     history.push("/profile");
   } catch (error) {
-    error.response.data.errors.map((el) => alert(el.msg));
+    console.log(error.response);
     dispatch({ type: FAIL_USER, payload: error.response.data.errors });
   }
 };
@@ -54,7 +54,7 @@ export const logout = () => {
   };
 };
 
-export const videErrors = () => {
+export const clearErrors = () => {
   return {
     type: "VIDE_ERRORS",
   };
