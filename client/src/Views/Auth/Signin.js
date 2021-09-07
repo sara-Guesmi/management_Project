@@ -22,7 +22,9 @@ const Signin = ({ history }) => {
   return (
     <div style={{ position: "relative" }}>
       <div style={{ position: "absolute", zIndex: 1 }}>
-        {errors ? errors.map((el) => <Notification error={el} />) : null}
+        {errors && errors
+          ? errors.map((el, i) => <Notification error={el} key={i} />)
+          : null}
       </div>
       <div className="login-root">
         <div

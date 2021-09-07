@@ -1,8 +1,8 @@
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import "./Signin.css";
 import { useDispatch, useSelector } from "react-redux";
 import { register } from "../../Redux/actions/user";
-import { Link } from "react-router-dom";
+import { Link, useHistory } from "react-router-dom";
 import Notification from "../../Components/Notification/Notification";
 
 const Signup = () => {
@@ -13,6 +13,7 @@ const Signup = () => {
     email: "",
     password: "",
   });
+  const history = useHistory();
   const dispatch = useDispatch();
   const errors = useSelector((state) => state.userReducer.errors);
 
@@ -22,14 +23,16 @@ const Signup = () => {
 
   const handleUser = (e) => {
     e.preventDefault();
-    dispatch(register(user));
+    dispatch(register(user, history));
     setUser({ role: "client" });
   };
 
   return (
     <div style={{ position: "relative" }}>
       <div style={{ position: "absolute", zIndex: 1 }}>
-        {errors ? errors.map((el) => <Notification error={el} />) : null}
+        {errors && errors
+          ? errors.map((el, i) => <Notification error={el} key={i} />)
+          : null}
       </div>
       <div className="login-root">
         <div

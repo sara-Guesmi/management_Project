@@ -5,19 +5,22 @@ import {
   LOGIN_USER,
   REGISTER_USER,
   LOGOUT_USER,
+  GET_ALL_CHEF,
+  GET_CHEF,
 } from "../constants/user";
 
 import axios from "axios";
-import Notification from "../../Components/Notification/Notification";
+import { GET_DEMANDES_CHEF } from "../constants/demandes";
 
 export const register = (newUser, history) => async (dispatch) => {
   dispatch({ type: LOAD_USER });
-  console.log(history);
+
   try {
     const result = await axios.post("/api/user/signup", newUser);
 
     dispatch({ type: REGISTER_USER, payload: result.data }); //msg , token , user
     alert(result.data.msg);
+    history.push("/signin");
   } catch (error) {
     dispatch({ type: FAIL_USER, payload: error.response.data.errors });
   }
@@ -29,7 +32,7 @@ export const login = (user, history) => async (dispatch) => {
   try {
     const result = await axios.post("/api/user/signin", user);
     dispatch({ type: LOGIN_USER, payload: result.data }); //msg /token , user
-    history.push("/profile");
+    history.push("/dashbord");
   } catch (error) {
     console.log(error.response);
     dispatch({ type: FAIL_USER, payload: error.response.data.errors });
@@ -44,7 +47,31 @@ export const currentUser = () => async (dispatch) => {
     const result = await axios.get("/api/user/current", options);
     dispatch({ type: CURRENT_USER, payload: result.data });
   } catch (error) {
-    dispatch({ type: FAIL_USER, payload: error.response.data });
+    dispatch({ type: FAIL_USER, payload: error.response.data.errors });
+  }
+};
+
+export const getAllChef = () => async (dispatch) => {
+  try {
+    const options = {
+      headers: { Authorization: localStorage.getItem("token") },
+    };
+    const result = await axios.get("/api/chef/", options);
+    dispatch({ type: GET_ALL_CHEF, payload: result.data });
+  } catch (error) {
+    dispatch({ type: FAIL_USER, payload: error.response.data.errors });
+  }
+};
+
+export const getChef = (id) => async (dispatch) => {
+  try {
+    const options = {
+      headers: { Authorization: localStorage.getItem("token") },
+    };
+    const result = await axios.get(`/api/chef/${id}`, options);
+    dispatch({ type: GET_CHEF, payload: result.data.profile });
+  } catch (error) {
+    dispatch({ type: FAIL_USER, payload: error.response.data.errors });
   }
 };
 

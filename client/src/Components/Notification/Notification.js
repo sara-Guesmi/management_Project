@@ -4,9 +4,10 @@ import { toast } from "react-toastify";
 import { clearErrors } from "../../Redux/actions/user";
 
 toast.configure();
-const Notification = ({ error, status }) => {
+const Notification = ({ error }) => {
   const [show, setShow] = useState(true);
   const dispatch = useDispatch();
+
   useEffect(() => {
     setTimeout(() => {
       setShow(false);
@@ -14,8 +15,9 @@ const Notification = ({ error, status }) => {
     return () => {
       dispatch(clearErrors());
     };
-  }, [show]);
-  return <div>{show && toast(error.msg)}</div>;
+  }, [show, dispatch]);
+
+  return <div>{show && toast.error(error.msg)}</div>;
 };
 
 export default Notification;

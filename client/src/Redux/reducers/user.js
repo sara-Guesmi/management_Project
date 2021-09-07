@@ -5,6 +5,8 @@ import {
   LOGIN_USER,
   REGISTER_USER,
   LOGOUT_USER,
+  GET_ALL_CHEF,
+  GET_CHEF,
 } from "../constants/user";
 
 const initialState = {
@@ -54,6 +56,17 @@ const userReducer = (state = initialState, { type, payload }) => {
         errors: [],
         user: {},
         isAuth: false,
+        chefs: [],
+      };
+    case GET_ALL_CHEF:
+      return {
+        ...state,
+        chefs: payload.chefs,
+      };
+    case GET_CHEF:
+      return {
+        ...state,
+        profile: payload.profile,
       };
     case "VIDE_ERRORS":
       return { ...state, errors: null };

@@ -10,6 +10,7 @@ connectDB();
 app.use(express.json());
 // router
 app.use("/api/user", require("./router/user"));
+app.use("/api/chef", require("./router/chefProject"));
 app.use("/api/admin", require("./router/admin"));
 app.use("/api/demande", require("./router/demandes"));
 

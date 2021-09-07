@@ -1,14 +1,23 @@
-import React from "react";
+import React, { useEffect } from "react";
+import { useDispatch } from "react-redux";
+
+import { getChef } from "../../Redux/actions/user";
+import Demande from "./Demande";
+
 import "./Profile.css";
-const Profile = () => {
+
+const Profile = ({ match }) => {
+  const dispatch = useDispatch();
+
+  useEffect(() => {
+    dispatch(getChef(match.params.id));
+  }, []);
+
   return (
     <section id="about-me">
-      <h1>
-        Hello my name is <span className="rotate text-important">Client</span>
-        ,
-        <br />
-        and i make horrible websites
-      </h1>
+      {/* <button>Contact This Chef Project</button> */}
+      <Demande />
+
       <img
         className="avatar rotate"
         src="https://cdn2.iconfinder.com/data/icons/avatar-profile/449/avatar_user_default_contact_profile_male-512.png"
