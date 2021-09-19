@@ -132,11 +132,6 @@ const Signup = () => {
             className="box-root padding-top--24 flex-flex flex-direction--column"
             style={{ flexGrow: 1, zIndex: 9 }}
           >
-            <div className="box-root padding-top--48 padding-bottom--24 flex-flex flex-justifyContent--center">
-              <h1>
-                <Link to="/"> Project</Link>
-              </h1>
-            </div>
             <div className="formbg-outer">
               <div className="formbg">
                 <div className="formbg-inner padding-horizontal--48">

@@ -7,7 +7,9 @@ const ProfileSchema = new Schema({
     ref: "user",
   },
   dateOfBirth: { type: Date, required: true },
+  phoneNumber: { type: Number, required: true },
   domain: { type: String, required: true },
+  adresse: { type: String, required: true },
   departement: { type: String, required: true }, //if there is a categories of departement??
   gender: { type: String, enum: ["male", "female"], required: true },
 });

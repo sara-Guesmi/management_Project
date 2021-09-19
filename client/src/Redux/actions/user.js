@@ -10,7 +10,10 @@ import {
 } from "../constants/user";
 
 import axios from "axios";
-import { GET_DEMANDES_CHEF } from "../constants/demandes";
+
+const options = {
+  headers: { Authorization: localStorage.getItem("token") },
+};
 
 export const register = (newUser, history) => async (dispatch) => {
   dispatch({ type: LOAD_USER });
@@ -40,10 +43,8 @@ export const login = (user, history) => async (dispatch) => {
 };
 
 export const currentUser = () => async (dispatch) => {
+  dispatch({ type: LOAD_USER });
   try {
-    const options = {
-      headers: { Authorization: localStorage.getItem("token") },
-    };
     const result = await axios.get("/api/user/current", options);
     dispatch({ type: CURRENT_USER, payload: result.data });
   } catch (error) {
@@ -53,9 +54,6 @@ export const currentUser = () => async (dispatch) => {
 
 export const getAllChef = () => async (dispatch) => {
   try {
-    const options = {
-      headers: { Authorization: localStorage.getItem("token") },
-    };
     const result = await axios.get("/api/chef/", options);
     dispatch({ type: GET_ALL_CHEF, payload: result.data });
   } catch (error) {
@@ -65,9 +63,6 @@ export const getAllChef = () => async (dispatch) => {
 
 export const getChef = (id) => async (dispatch) => {
   try {
-    const options = {
-      headers: { Authorization: localStorage.getItem("token") },
-    };
     const result = await axios.get(`/api/chef/${id}`, options);
     dispatch({ type: GET_CHEF, payload: result.data.profile });
   } catch (error) {
@@ -85,4 +80,14 @@ export const clearErrors = () => {
   return {
     type: "VIDE_ERRORS",
   };
+};
+
+export const postProfile = (newProfile) => async (dispatch) => {
+  dispatch({ type: LOAD_USER });
+  try {
+    const { data } = await axios.post("/api/chef", newProfile, options);
+    dispatch(getChef(data.id));
+  } catch (error) {
+    dispatch({ type: FAIL_USER });
+  }
 };

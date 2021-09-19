@@ -10,11 +10,11 @@ const ChefsList = () => {
 
   useEffect(() => {
     dispatch(getAllChef());
-  }, []);
+  }, [dispatch]);
 
   return (
     <div className="listChef">
-      {chefs && chefs.map((el) => <Chef chef={el} />)}
+      {chefs && chefs.map((el) => <Chef chef={el} key={el._id} />)}
     </div>
   );
 };

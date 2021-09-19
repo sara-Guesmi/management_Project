@@ -14,6 +14,7 @@ const initialState = {
   isAuth: false,
   loadUser: false,
   errors: null,
+  profile: null,
 };
 
 const userReducer = (state = initialState, { type, payload }) => {
@@ -66,7 +67,7 @@ const userReducer = (state = initialState, { type, payload }) => {
     case GET_CHEF:
       return {
         ...state,
-        profile: payload.profile,
+        profile: payload,
       };
     case "VIDE_ERRORS":
       return { ...state, errors: null };

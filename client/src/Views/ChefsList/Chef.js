@@ -11,6 +11,7 @@ const Chef = ({ chef }) => {
             <img
               className="img-fluid"
               src="https://picsum.photos/130/130?image=1027"
+              alt="profile"
             />
           </div>
           <div className="team-content">

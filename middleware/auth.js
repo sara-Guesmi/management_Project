@@ -20,9 +20,8 @@ const isAuth = async (req, res, next) => {
       return res.status(400).send({ errors: [{ msg: "Unauthorized" }] });
     }
 
-    // if user exist
+    // if user exist so chi3adi currect user f request
     req.user = user;
-
     next();
   } catch (error) {
     return res.status(500).send({ errors: [{ msg: "Unauthorized" }] });

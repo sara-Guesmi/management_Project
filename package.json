@@ -11,6 +11,8 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
+    "@material-ui/icons": "^4.11.2",
+    "@mui/material": "^5.0.0",
     "bcrypt": "^5.0.1",
     "bcryptjs": "^2.4.3",
     "dotenv": "^10.0.0",

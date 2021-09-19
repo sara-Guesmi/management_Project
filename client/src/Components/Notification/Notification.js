@@ -4,6 +4,7 @@ import { toast } from "react-toastify";
 import { clearErrors } from "../../Redux/actions/user";
 
 toast.configure();
+
 const Notification = ({ error }) => {
   const [show, setShow] = useState(true);
   const dispatch = useDispatch();

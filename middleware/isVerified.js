@@ -3,7 +3,6 @@ const User = require("../models/User");
 const isVerified = async (req, res, next) => {
   try {
     const { email } = req.body;
-    console.log(email);
     const findUser = await User.findOne({ email });
     if (findUser.verified) {
       next();

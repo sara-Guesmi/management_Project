@@ -5,10 +5,12 @@ const DemandeSchema = new Schema({
   id_client: {
     type: Schema.Types.ObjectId,
     ref: "user",
+    required: true,
   },
   id_chef: {
     type: Schema.Types.ObjectId,
     ref: "user",
+    required: true,
   },
   text: { type: String, required: true },
   dueDate: { type: Date, required: true },
