@@ -7,6 +7,7 @@ import {
   LOGOUT_USER,
   GET_ALL_CHEF,
   GET_CHEF,
+  GET_ALL_CLIENT,
 } from "../constants/user";
 
 const initialState = {
@@ -15,6 +16,7 @@ const initialState = {
   loadUser: false,
   errors: null,
   profile: null,
+  clients: [],
 };
 
 const userReducer = (state = initialState, { type, payload }) => {
@@ -58,17 +60,23 @@ const userReducer = (state = initialState, { type, payload }) => {
         user: {},
         isAuth: false,
         chefs: [],
+        clients: [],
       };
     case GET_ALL_CHEF:
       return {
         ...state,
+        loadUser: false,
         chefs: payload.chefs,
       };
     case GET_CHEF:
       return {
         ...state,
+        loadUser: false,
         profile: payload,
       };
+    case GET_ALL_CLIENT:
+      return { ...state, loadUser: false, errors: false, clients: payload };
+
     case "VIDE_ERRORS":
       return { ...state, errors: null };
     default:

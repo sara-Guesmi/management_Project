@@ -6,4 +6,5 @@ export const LOAD_USER = "LOAD_USER";
 export const FAIL_USER = "FAIL_USER";
 export const LOGOUT_USER = "LOGOUT_USER";
 export const GET_ALL_CHEF = "GET_ALL_CHEF";
+export const GET_ALL_CLIENT = "GET_ALL_CLIENT";
 export const GET_CHEF = "GET_CHEF";

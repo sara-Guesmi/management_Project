@@ -19,9 +19,12 @@ const DemandeCard = ({ demande }) => {
   const handleChange = () => {
     if (demande.approved) {
       return alert("demande is already approved ");
+    } else {
+      const confirmBox = window.confirm("Are You sure to accept this demande?");
+      if (confirmBox) {
+        return dispatch(updateStatus(demande._id));
+      }
     }
-    const confirmBox = window.confirm("Are You sure to accept this demande?");
-    return dispatch(updateStatus(demande._id));
   };
 
   const handleDelete = () => {

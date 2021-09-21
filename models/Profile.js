@@ -5,6 +5,7 @@ const ProfileSchema = new Schema({
   id_chef: {
     type: Schema.Types.ObjectId,
     ref: "user",
+    required: true,
   },
   dateOfBirth: { type: Date, required: true },
   phoneNumber: { type: Number, required: true },

@@ -8,14 +8,10 @@ const Navbar = () => {
   const dispatch = useDispatch();
   const history = useHistory();
   const token = localStorage.getItem("token");
+
   if (token) {
     return (
       <nav className="navbar navbar-expand-md navbar-light bg-white p-2 ">
-        <img
-          src="https://icon-library.com/images/management-icon-png/management-icon-png-17.jpg"
-          alt="logo"
-          width="5%"
-        />
         <button
           className="navbar-toggler mr-3"
           type="button"
@@ -30,31 +26,33 @@ const Navbar = () => {
         <div className="collapse navbar-collapse" id="navbarNav">
           <ul className="navbar-nav">
             <li className="nav-item">
+              {" "}
+              <NavLink to="/dashbord">
+                <img
+                  src="https://icon-library.com/images/management-icon-png/management-icon-png-17.jpg"
+                  alt="logo"
+                  width="50px"
+                />
+              </NavLink>
+            </li>
+            <li className="nav-item">
               <a
                 className="nav-link"
                 href="#"
                 id="navbarDropdown1"
                 role="button"
               >
-                {user && user.role == "client" ? (
+                {user && user.role === "client" ? (
                   <Link to="/dashbord">Chef List</Link>
-                ) : (
+                ) : user && user.role === "chef-projet" ? (
                   <Link to="/dashbord">Dhashbord</Link>
+                ) : (
+                  <Link to="/dashbord">user List</Link>
                 )}
                 <span className="fa fa-angle-down" />
               </a>
             </li>
-            <li className="nav-item">
-              <a
-                className="nav-link"
-                href="#"
-                id="navbarDropdown2"
-                role="button"
-              >
-                Resources
-                <span className="fa fa-angle-down" />
-              </a>
-            </li>
+
             <li className="nav-item">
               <a
                 className="nav-link"
@@ -62,13 +60,14 @@ const Navbar = () => {
                 id="navbarDropdown3"
                 role="button"
               >
-                <NavLink to="/listDemande">My demandes</NavLink>
+                {user && user.role !== "admin" ? (
+                  <NavLink to="/listDemande">My demandes</NavLink>
+                ) : null}
                 <span className="fa fa-angle-down" />
               </a>
             </li>
           </ul>
         </div>
-
         <button
           onClick={() => {
             dispatch(logout());

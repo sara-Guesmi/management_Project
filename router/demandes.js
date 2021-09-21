@@ -14,10 +14,11 @@ const isAuth = require("../middleware/auth");
 const isChef = require("../middleware/isChef");
 const isClient = require("../middleware/isClient");
 
+router.get("/client/alldemande", isAuth, isClient, getDemandeClient);
+
 router.post("/:id_chef", isAuth, isClient, addDemande);
 router.get("/chef", isAuth, isChef, getDemandeChef);
 
-router.get("/client", isAuth, isClient, getDemandeClient);
 router.get("/:id_demande", isAuth, isClient, getDemande);
 
 router.get("/accepteddemandechef", isAuth, isChef, getAcceptedDemandeChef);

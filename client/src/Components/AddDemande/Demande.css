@@ -206,3 +206,8 @@
     padding: 0;
   }
 }
+
+.btnDemande:hover {
+  color: #528eae;
+  border-color: #528eae;
+}

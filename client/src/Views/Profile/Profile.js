@@ -9,13 +9,12 @@ import { getChef } from "../../Redux/actions/user";
 // import Demande from ".";
 
 import "./Profile.css";
+import ProfileCard from "./ProfileCard";
 
 const Profile = () => {
   const profile = useSelector((state) => state.userReducer.profile);
   const loadUser = useSelector((state) => state.userReducer.loadUser);
   const user = useSelector((state) => state.userReducer.user);
-
-  console.log(profile);
   const dispatch = useDispatch();
 
   const { id_chef } = useParams();
@@ -27,26 +26,38 @@ const Profile = () => {
     dispatch(isEdit(false));
   }, [dispatch, id]);
 
-  if (user && user.role == "chef-projet" && profile == null) {
-    return <Redirect to="/addProfile" />;
-  }
-
   return loadUser ? (
     <CircularProgress />
-  ) : (
-    <section id="about-me">
-      {/* <button>Contact This Chef Project</button> */}
-      {user && user.role == "client" ? (
-        <Demande onClick={dispatch(isEdit(false))} />
-      ) : null}
+  ) : user && user.role == "client" ? (
+    <div>
+      <Demande onClick={dispatch(isEdit(false))} />
 
-      <img
-        className="avatar rotate"
-        src="https://cdn2.iconfinder.com/data/icons/avatar-profile/449/avatar_user_default_contact_profile_male-512.png"
-        alt="imageSrc"
-      />
-    </section>
+      <ProfileCard profile={profile} />
+    </div>
+  ) : profile && profile ? (
+    <ProfileCard profile={profile} />
+  ) : (
+    <Redirect to="/addProfile" />
   );
 };
-
 export default Profile;
+
+//  user && user.role == "chef-projet" && profile && profile == null ? (
+//   <Redirect to="/addProfile" />
+// ) : user && user.role == "chef-projet" ? (
+//   <ProfileCard profile={profile} />
+// ) : (
+//   // else if the user is client consult profile and send demande
+
+//   // else if the user is admin show profile and update status approved
+//   <section id="profile-card">
+//     {/* <button>Contact This Chef Project</button> */}
+//     {user && user.role == "client" ? (
+//       <div>
+//         <Demande onClick={dispatch(isEdit(false))} />
+
+//         <ProfileCard profile={profile} />
+//       </div>
+//     ) : null}
+//   </section>
+// );

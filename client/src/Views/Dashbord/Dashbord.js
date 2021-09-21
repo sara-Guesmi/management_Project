@@ -6,8 +6,9 @@ import Profile from "../Profile/Profile";
 
 const Dashbord = () => {
   const user = useSelector((state) => state.userReducer.user);
+  const loadUser = useSelector((state) => state.userReducer.loadUser);
 
-  if (user && user.role !== "client") {
+  if (!loadUser && user && user.role == "chef-projet") {
     return (
       <div>
         <Profile user={user} />

@@ -25,30 +25,6 @@ button {
   letter-spacing: 3px;
 }
 
-a {
-  text-decoration: none;
-  color: black;
-}
-
-.text-important {
-  color: #a7bea9;
-  font-size: 45px;
-}
-
-/* Header */
-
-header {
-  z-index: 1;
-  display: flex;
-  position: sticky;
-  top: 0;
-  background: white;
-  justify-content: space-between;
-  padding: 0 20px;
-  align-items: center;
-  border-bottom: 1px solid rgba(0, 0, 0, 0.5);
-}
-
 /*header > ul */
 .navmenu {
   list-style: none;
@@ -66,75 +42,12 @@ header {
 #about-me {
   display: flex;
   padding: 35px;
-  justify-content: space-around;
-  align-items: center;
-  border-bottom: 1px solid rgba(0, 0, 0, 0.168);
+  border-bottom: 1px solid rgba(0, 0, 0, 0.1);
 }
-
-.avatar {
-  border-radius: 50%;
-  width: 300px;
-  height: 300px;
-}
-
-/*Projects  */
-#projects {
-  border-bottom: 1px solid rgba(0, 0, 0, 0.168);
-}
-#projects h2 {
-  text-align: center;
-}
-
-.projects-container {
+#profile-card {
   display: flex;
-  flex-wrap: wrap;
-  justify-content: center;
-}
-
-.project-card {
-  cursor: pointer;
-  width: 300px;
-  /* margin : top/bottom  left/right  */
-  margin: 10px 15px;
-  border: 1px solid rgba(0, 0, 0, 0.171);
-}
-
-.project-card:hover {
-  background-color: #a7bea975;
-  transform: translateY(-4px);
-}
-
-.project-card a {
-  color: rgb(61, 170, 221);
-  text-decoration: underline;
-}
-
-.project-card p {
-  padding: 10px;
-}
-.project-card img {
+  flex-direction: row;
   width: 100%;
-}
-
-/*Contact me  */
-#contact {
-  border-bottom: 1px solid rgba(0, 0, 0, 0.171);
-}
-#contact h2 {
-  text-align: center;
-}
-
-#contact form {
-  display: flex;
-  flex-direction: column;
-  margin: 20px auto;
-  width: 50%;
-}
-#contact form > button {
-  align-self: center;
-  margin-top: 15px;
-}
-#contact form > button:hover {
-  color: white;
-  background-color: black;
+  align-items: center;
+  justify-content: space-around;
 }

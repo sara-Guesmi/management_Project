@@ -126,7 +126,7 @@ export default function Demande({ demande }) {
       {isEdit ? (
         <EditIcon onClick={handleOpen} />
       ) : (
-        <button type="button" onClick={handleOpen}>
+        <button type="button" className="btnDemande" onClick={handleOpen}>
           Send Your Demand
         </button>
       )}

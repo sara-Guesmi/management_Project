@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { postProfile } from "../../Redux/actions/user";
+import { useHistory } from "react-router-dom";
+import { postProfile, getChef } from "../../Redux/actions/user";
 
 import "./AddProfile.css";
 import TextField from "@mui/material/TextField";
@@ -15,26 +16,30 @@ const AddProfile = () => {
   const [newProfile, setNewProfile] = useState({});
 
   const dispatch = useDispatch();
-
+  const history = useHistory();
   useEffect(() => {
+    dispatch(getChef(user && user._id));
     setNewProfile({
       name: user && user.name,
       lastName: user && user.lastName,
-      gender: "male",
+      gender: "female",
     });
   }, []);
 
   const handleChange = (e) => {
+    console.log(e.target.value);
     setNewProfile({ ...newProfile, [e.target.name]: e.target.value });
   };
 
   const handleEditProfile = (e) => {
     e.preventDefault();
+
     dispatch(postProfile({ ...newProfile, dateOfBirth }));
+    history.push("/dashbord");
   };
 
   return (
-    <form onSubmit={handleEditProfile}>
+    <form onSubmit={(e) => handleEditProfile(e)}>
       <div className="container rounded bg-white mt-5 mb-5">
         <div className="row">
           <div className="col-md-3 border-right">
@@ -110,10 +115,10 @@ const AddProfile = () => {
                   />
                 </div>
               </div>
-              <div className="col-md-12">
+              <div className="col-md-12 m-3">
                 <LocalizationProvider dateAdapter={AdapterDateFns}>
                   <DatePicker
-                    label="Basic example"
+                    label="Date of Birth"
                     value={dateOfBirth}
                     onChange={(newValue) => {
                       setdateOfBirth(newValue);

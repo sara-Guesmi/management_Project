@@ -16,12 +16,13 @@ const config = {
 export const getDemandesClient = () => async (dispatch) => {
   dispatch({ type: LOAD_DEMANDES });
   try {
-    let { data } = await axios.get("/api/demande/client", config);
+    let { data } = await axios.get("/api/demande/client/alldemande", config);
     dispatch({ type: GET_DEMANDES, payload: data });
   } catch (error) {
     dispatch({ type: FAIL_DEMANDES, payload: error.response.data.errors });
   }
 };
+
 export const getDemande = (id_demande) => async (dispatch) => {
   dispatch({ type: LOAD_DEMANDES });
   try {
@@ -33,7 +34,6 @@ export const getDemande = (id_demande) => async (dispatch) => {
 };
 export const getDemandesChef = () => async (dispatch) => {
   dispatch({ type: LOAD_DEMANDES });
-  console.log(config);
   try {
     let { data } = await axios.get("/api/demande/chef", config);
     dispatch({ type: GET_DEMANDES, payload: data });

@@ -7,6 +7,7 @@ import {
   LOGOUT_USER,
   GET_ALL_CHEF,
   GET_CHEF,
+  GET_ALL_CLIENT,
 } from "../constants/user";
 
 import axios from "axios";
@@ -52,7 +53,9 @@ export const currentUser = () => async (dispatch) => {
   }
 };
 
-export const getAllChef = () => async (dispatch) => {
+export const getAllApprovedChef = () => async (dispatch) => {
+  dispatch({ type: LOAD_USER });
+
   try {
     const result = await axios.get("/api/chef/", options);
     dispatch({ type: GET_ALL_CHEF, payload: result.data });
@@ -60,8 +63,29 @@ export const getAllChef = () => async (dispatch) => {
     dispatch({ type: FAIL_USER, payload: error.response.data.errors });
   }
 };
+export const getAllChef = () => async (dispatch) => {
+  dispatch({ type: LOAD_USER });
+
+  try {
+    const result = await axios.get("/api/admin/allChef", options);
+    dispatch({ type: GET_ALL_CHEF, payload: result.data });
+  } catch (error) {
+    dispatch({ type: FAIL_USER, payload: error.response.data.errors });
+  }
+};
+
+export const getAllClient = () => async (dispatch) => {
+  dispatch({ type: LOAD_USER });
+  try {
+    const result = await axios.get("/api/admin/allClient", options);
+    dispatch({ type: GET_ALL_CLIENT, payload: result.data.clients });
+  } catch (error) {
+    dispatch({ type: FAIL_USER, payload: error.response.data.errors });
+  }
+};
 
 export const getChef = (id) => async (dispatch) => {
+  dispatch({ type: LOAD_USER });
   try {
     const result = await axios.get(`/api/chef/${id}`, options);
     dispatch({ type: GET_CHEF, payload: result.data.profile });
@@ -87,6 +111,40 @@ export const postProfile = (newProfile) => async (dispatch) => {
   try {
     const { data } = await axios.post("/api/chef", newProfile, options);
     dispatch(getChef(data.id));
+  } catch (error) {
+    dispatch({ type: FAIL_USER });
+  }
+};
+
+export const updateChefStatus = (id) => async (dispatch) => {
+  dispatch({ type: LOAD_USER });
+  try {
+    await axios.put(`/api/admin/changeStatus/${id}`, {}, options);
+    dispatch(getAllChef());
+    dispatch(getAllClient());
+  } catch (error) {
+    dispatch({ type: FAIL_USER });
+  }
+};
+
+export const updateBannedUser = (id) => async (dispatch) => {
+  dispatch({ type: LOAD_USER });
+  try {
+    await axios.put(`/api/admin/bannedUser/${id}`, {}, options);
+    dispatch(getAllChef());
+    dispatch(getAllClient());
+  } catch (error) {
+    dispatch({ type: FAIL_USER });
+  }
+};
+
+export const deleteUser = (id) => async (dispatch) => {
+  dispatch({ type: LOAD_USER });
+  try {
+    await axios.delete(`/api/admin/deleteUser/${id}`, options);
+
+    dispatch(getAllChef());
+    dispatch(getAllClient());
   } catch (error) {
     dispatch({ type: FAIL_USER });
   }
