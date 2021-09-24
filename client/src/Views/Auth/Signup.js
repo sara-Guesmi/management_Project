@@ -24,7 +24,13 @@ const Signup = () => {
   const handleUser = (e) => {
     e.preventDefault();
     dispatch(register(user, history));
-    setUser({ role: "client" });
+    setUser({
+      role: "client",
+      name: "",
+      lastName: "",
+      email: "",
+      password: "",
+    });
   };
 
   return (

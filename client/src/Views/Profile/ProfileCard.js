@@ -13,6 +13,7 @@ const ProfileCard = ({ profile }) => {
                     <div className="m-b-25">
                       {profile && profile.gender == "female" ? (
                         <img
+                          width="20%"
                           src="https://cdn1.iconfinder.com/data/icons/avatar-11/76/5-512.png"
                           className="img-radius"
                           alt="femalechef"
@@ -21,7 +22,7 @@ const ProfileCard = ({ profile }) => {
                         <img
                           src="https://img.icons8.com/bubbles/100/000000/user.png"
                           className="img-radius"
-                          alt="User-Profile-Image"
+                          alt="User-Profile"
                         />
                       )}
                     </div>

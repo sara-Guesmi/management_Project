@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { useHistory } from "react-router-dom";
+import { useHistory, useParams } from "react-router-dom";
 import { postProfile, getChef } from "../../Redux/actions/user";
 
 import "./AddProfile.css";
@@ -16,6 +16,7 @@ const AddProfile = () => {
   const [newProfile, setNewProfile] = useState({});
 
   const dispatch = useDispatch();
+  const { id_chef } = useParams();
   const history = useHistory();
   useEffect(() => {
     dispatch(getChef(user && user._id));
@@ -34,7 +35,7 @@ const AddProfile = () => {
   const handleEditProfile = (e) => {
     e.preventDefault();
 
-    dispatch(postProfile({ ...newProfile, dateOfBirth }));
+    dispatch(postProfile({ ...newProfile, dateOfBirth }, id_chef));
     history.push("/dashbord");
   };
 

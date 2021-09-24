@@ -6,17 +6,19 @@ import "./chef.css";
 import LibraryAddCheckOutlinedIcon from "@mui/icons-material/LibraryAddCheckOutlined";
 import CheckBoxIcon from "@mui/icons-material/CheckBox";
 import BlockIcon from "@mui/icons-material/Block";
+import DeleteOutlineOutlined from "@mui/icons-material/DeleteOutlineOutlined";
 
 import {
   deleteUser,
+  getChef,
   updateBannedUser,
   updateChefStatus,
 } from "../../Redux/actions/user";
-import DeleteOutlineOutlined from "@mui/icons-material/DeleteOutlineOutlined";
 
 const Chef = ({ chef }) => {
   const user = useSelector((state) => state.userReducer.user);
   const dispatch = useDispatch();
+  // -----------------------------------
 
   // -------------------------------------
   const handleStatus = () => {
@@ -45,7 +47,7 @@ const Chef = ({ chef }) => {
   };
   // ------------------------------------------
   return (
-    <div className="col-12 col-sm-6 col-md-4 col-lg-3">
+    <div className="col-12 col-sm-6 col-md-4 col-lg-3 m-3">
       {user && user.role == "admin" ? (
         <div className="our-team">
           <div className="picture">

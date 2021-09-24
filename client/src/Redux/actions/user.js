@@ -12,10 +12,6 @@ import {
 
 import axios from "axios";
 
-const options = {
-  headers: { Authorization: localStorage.getItem("token") },
-};
-
 export const register = (newUser, history) => async (dispatch) => {
   dispatch({ type: LOAD_USER });
 
@@ -38,15 +34,19 @@ export const login = (user, history) => async (dispatch) => {
     dispatch({ type: LOGIN_USER, payload: result.data }); //msg /token , user
     history.push("/dashbord");
   } catch (error) {
-    console.log(error.response);
     dispatch({ type: FAIL_USER, payload: error.response.data.errors });
   }
 };
 
 export const currentUser = () => async (dispatch) => {
   dispatch({ type: LOAD_USER });
+  const config = {
+    headers: {
+      authorization: localStorage.getItem("token"),
+    },
+  };
   try {
-    const result = await axios.get("/api/user/current", options);
+    const result = await axios.get("/api/user/current", config);
     dispatch({ type: CURRENT_USER, payload: result.data });
   } catch (error) {
     dispatch({ type: FAIL_USER, payload: error.response.data.errors });
@@ -56,8 +56,13 @@ export const currentUser = () => async (dispatch) => {
 export const getAllApprovedChef = () => async (dispatch) => {
   dispatch({ type: LOAD_USER });
 
+  const config = {
+    headers: {
+      authorization: localStorage.getItem("token"),
+    },
+  };
   try {
-    const result = await axios.get("/api/chef/", options);
+    const result = await axios.get("/api/chef/approved", config);
     dispatch({ type: GET_ALL_CHEF, payload: result.data });
   } catch (error) {
     dispatch({ type: FAIL_USER, payload: error.response.data.errors });
@@ -65,9 +70,13 @@ export const getAllApprovedChef = () => async (dispatch) => {
 };
 export const getAllChef = () => async (dispatch) => {
   dispatch({ type: LOAD_USER });
-
+  const config = {
+    headers: {
+      authorization: localStorage.getItem("token"),
+    },
+  };
   try {
-    const result = await axios.get("/api/admin/allChef", options);
+    const result = await axios.get("/api/admin/allChef", config);
     dispatch({ type: GET_ALL_CHEF, payload: result.data });
   } catch (error) {
     dispatch({ type: FAIL_USER, payload: error.response.data.errors });
@@ -76,8 +85,13 @@ export const getAllChef = () => async (dispatch) => {
 
 export const getAllClient = () => async (dispatch) => {
   dispatch({ type: LOAD_USER });
+  const config = {
+    headers: {
+      authorization: localStorage.getItem("token"),
+    },
+  };
   try {
-    const result = await axios.get("/api/admin/allClient", options);
+    const result = await axios.get("/api/admin/allClient", config);
     dispatch({ type: GET_ALL_CLIENT, payload: result.data.clients });
   } catch (error) {
     dispatch({ type: FAIL_USER, payload: error.response.data.errors });
@@ -86,8 +100,13 @@ export const getAllClient = () => async (dispatch) => {
 
 export const getChef = (id) => async (dispatch) => {
   dispatch({ type: LOAD_USER });
+  const config = {
+    headers: {
+      authorization: localStorage.getItem("token"),
+    },
+  };
   try {
-    const result = await axios.get(`/api/chef/${id}`, options);
+    const result = await axios.get(`/api/chef/${id}`, config);
     dispatch({ type: GET_CHEF, payload: result.data.profile });
   } catch (error) {
     dispatch({ type: FAIL_USER, payload: error.response.data.errors });
@@ -106,10 +125,15 @@ export const clearErrors = () => {
   };
 };
 
-export const postProfile = (newProfile) => async (dispatch) => {
+export const postProfile = (newProfile, id) => async (dispatch) => {
   dispatch({ type: LOAD_USER });
+  const config = {
+    headers: {
+      authorization: localStorage.getItem("token"),
+    },
+  };
   try {
-    const { data } = await axios.post("/api/chef", newProfile, options);
+    const { data } = await axios.post("/api/chef", { newProfile, id }, config);
     dispatch(getChef(data.id));
   } catch (error) {
     dispatch({ type: FAIL_USER });
@@ -118,8 +142,13 @@ export const postProfile = (newProfile) => async (dispatch) => {
 
 export const updateChefStatus = (id) => async (dispatch) => {
   dispatch({ type: LOAD_USER });
+  const config = {
+    headers: {
+      authorization: localStorage.getItem("token"),
+    },
+  };
   try {
-    await axios.put(`/api/admin/changeStatus/${id}`, {}, options);
+    await axios.put(`/api/admin/changeStatus/${id}`, {}, config);
     dispatch(getAllChef());
     dispatch(getAllClient());
   } catch (error) {
@@ -129,8 +158,13 @@ export const updateChefStatus = (id) => async (dispatch) => {
 
 export const updateBannedUser = (id) => async (dispatch) => {
   dispatch({ type: LOAD_USER });
+  const config = {
+    headers: {
+      authorization: localStorage.getItem("token"),
+    },
+  };
   try {
-    await axios.put(`/api/admin/bannedUser/${id}`, {}, options);
+    await axios.put(`/api/admin/bannedUser/${id}`, {}, config);
     dispatch(getAllChef());
     dispatch(getAllClient());
   } catch (error) {
@@ -140,8 +174,13 @@ export const updateBannedUser = (id) => async (dispatch) => {
 
 export const deleteUser = (id) => async (dispatch) => {
   dispatch({ type: LOAD_USER });
+  const config = {
+    headers: {
+      authorization: localStorage.getItem("token"),
+    },
+  };
   try {
-    await axios.delete(`/api/admin/deleteUser/${id}`, options);
+    await axios.delete(`/api/admin/deleteUser/${id}`, config);
 
     dispatch(getAllChef());
     dispatch(getAllClient());

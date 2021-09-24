@@ -2,7 +2,7 @@ import React from "react";
 import { useDispatch, useSelector } from "react-redux";
 import "./Navbar.css";
 import { logout } from "../../Redux/actions/user";
-import { Link, NavLink, useHistory } from "react-router-dom";
+import { Link, useHistory } from "react-router-dom";
 const Navbar = () => {
   const user = useSelector((state) => state.userReducer.user);
   const dispatch = useDispatch();
@@ -27,13 +27,13 @@ const Navbar = () => {
           <ul className="navbar-nav">
             <li className="nav-item">
               {" "}
-              <NavLink to="/dashbord">
+              <Link to="/dashbord">
                 <img
                   src="https://icon-library.com/images/management-icon-png/management-icon-png-17.jpg"
                   alt="logo"
                   width="50px"
                 />
-              </NavLink>
+              </Link>
             </li>
             <li className="nav-item">
               <a
@@ -61,7 +61,7 @@ const Navbar = () => {
                 role="button"
               >
                 {user && user.role !== "admin" ? (
-                  <NavLink to="/listDemande">My demandes</NavLink>
+                  <Link to="/listDemande">My demandes</Link>
                 ) : null}
                 <span className="fa fa-angle-down" />
               </a>

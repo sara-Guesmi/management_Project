@@ -24,8 +24,13 @@ exports.getProfile = async (req, res) => {
 };
 exports.postProfile = async (req, res) => {
   try {
+    console.log(req.user._id);
+
     const { _id } = req.user;
-    const newChefProfile = new Profile({ ...req.body, id_chef: _id });
+    const newChefProfile = new Profile({
+      ...req.body.newProfile,
+      id_chef: _id,
+    });
     await newChefProfile.save();
     res
       .status(200)

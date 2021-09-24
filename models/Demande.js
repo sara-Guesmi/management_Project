@@ -16,6 +16,11 @@ const DemandeSchema = new Schema({
   dueDate: { type: Date, required: true },
 
   approved: { type: Boolean, default: false },
+  status: {
+    type: String,
+    enum: ["send", "pending", "done"],
+    default: "send",
+  },
 });
 
 module.exports = Demande = model("demande", DemandeSchema);

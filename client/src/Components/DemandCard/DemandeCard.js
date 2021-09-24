@@ -7,8 +7,13 @@ import PendingActionsIcon from "@mui/icons-material/PendingActions";
 import { Checkbox } from "@material-ui/core";
 import DoneIcon from "@mui/icons-material/Done";
 import DeleteIcon from "@mui/icons-material/Delete";
+import CheckCircleOutlineIcon from "@mui/icons-material/CheckCircleOutline";
 
-import { deleteDemande, updateStatus } from "../../Redux/actions/demandes";
+import {
+  deleteDemande,
+  updateStatusToDone,
+  updateStatusToPending,
+} from "../../Redux/actions/demandes";
 import Demande from "../AddDemande/Demande";
 
 const DemandeCard = ({ demande }) => {
@@ -22,7 +27,7 @@ const DemandeCard = ({ demande }) => {
     } else {
       const confirmBox = window.confirm("Are You sure to accept this demande?");
       if (confirmBox) {
-        return dispatch(updateStatus(demande._id));
+        return dispatch(updateStatusToPending(demande._id));
       }
     }
   };
@@ -33,6 +38,12 @@ const DemandeCard = ({ demande }) => {
     );
     if (confirmBox) {
       dispatch(deleteDemande(demande._id));
+    }
+  };
+  const handleDone = () => {
+    const confirmBox = window.confirm("Are You sure That you done that Taks?");
+    if (confirmBox) {
+      return dispatch(updateStatusToDone(demande._id));
     }
   };
 
@@ -57,14 +68,38 @@ const DemandeCard = ({ demande }) => {
                 <Demande demande={demande} />
                 <DeleteIcon onClick={handleDelete} />
               </div>
-            ) : null}
+            ) : demande.status == "done" ? (
+              <div>
+                <DeleteIcon onClick={handleDelete} />
+                <p>{demande.status}</p>
+              </div>
+            ) : (
+              <div>
+                <p>{demande.status}</p>
+              </div>
+            )}
           </div>
         ) : (
-          <Checkbox
-            checked={demande.approved}
-            onChange={handleChange}
-            inputProps={{ "aria-label": "controlled" }}
-          />
+          <div>
+            <Checkbox
+              checked={demande.approved}
+              onChange={handleChange}
+              inputProps={{ "aria-label": "controlled" }}
+            />
+            {demande.status == "done" ? (
+              <div>
+                <p>Done </p> <DeleteIcon onClick={handleDelete} />
+              </div>
+            ) : demande.status == "pending" ? (
+              <div>
+                <p>pending</p>
+                <div className="done-task">
+                  <p>Mark as resolved</p>
+                  <CheckCircleOutlineIcon onClick={handleDone} />
+                </div>
+              </div>
+            ) : null}
+          </div>
         )}
       </div>
     </div>

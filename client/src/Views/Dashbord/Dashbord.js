@@ -1,25 +1,30 @@
-import React from "react";
-import { useSelector } from "react-redux";
+import React, { useEffect } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import {
+  getAllApprovedChef,
+  getAllChef,
+  getChef,
+} from "../../Redux/actions/user";
 
 import ChefsList from "../ChefsList/ChefsList";
 import Profile from "../Profile/Profile";
 
 const Dashbord = () => {
   const user = useSelector((state) => state.userReducer.user);
-  const loadUser = useSelector((state) => state.userReducer.loadUser);
 
-  if (!loadUser && user && user.role == "chef-projet") {
+  if (user && user.role == "chef-projet") {
     return (
       <div>
         <Profile user={user} />
       </div>
     );
+  } else {
+    return (
+      <div>
+        <ChefsList />
+      </div>
+    );
   }
-  return (
-    <div>
-      <ChefsList />
-    </div>
-  );
 };
 
 export default Dashbord;

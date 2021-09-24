@@ -24,7 +24,7 @@ const isAuth = async (req, res, next) => {
     req.user = user;
     next();
   } catch (error) {
-    return res.status(500).send({ errors: [{ msg: "Unauthorized" }] });
+    return res.status(400).send({ errors: [{ msg: "Unauthorized" }] });
   }
 };
 

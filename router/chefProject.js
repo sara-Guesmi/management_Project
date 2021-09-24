@@ -10,7 +10,7 @@ const isChef = require("../middleware/isChef");
 
 // router.post("/profile", Signup);
 // router.put("/profile", Signup);
-router.get("/", isAuth, getAllChef);
+router.get("/approved", isAuth, getAllChef);
 
 router.get("/:id", isAuth, getProfile);
 router.post("/", isAuth, isChef, postProfile);

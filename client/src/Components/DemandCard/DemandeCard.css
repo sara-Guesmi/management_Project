@@ -76,3 +76,7 @@
   display: flex;
   justify-content: space-between;
 }
+.done-task {
+  display: flex;
+  justify-content: space-around;
+}

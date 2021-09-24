@@ -15,21 +15,23 @@ import "./ListDemandes.css";
 const ListDemande = () => {
   const demandes = useSelector((state) => state.demandeReducer.demandes);
   const user = useSelector((state) => state.userReducer.user);
-  console.log(user);
   const loadDemandes = useSelector(
     (state) => state.demandeReducer.loadDemandes
   );
+
   const errors = useSelector((state) => state.demandeReducer.errors);
   const dispatch = useDispatch();
 
   useEffect(() => {
-    dispatch(isEdit(true));
     if (user && user.role == "client") {
       dispatch(getDemandesClient());
     } else {
       dispatch(getDemandesChef());
     }
-  }, [dispatch]);
+  }, [dispatch, user]);
+  useEffect(() => {
+    dispatch(isEdit(true));
+  }, []);
 
   return (
     <div>

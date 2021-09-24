@@ -10,12 +10,12 @@ import "./ChefsList.css";
 const ChefsList = () => {
   const chefs = useSelector((state) => state.userReducer.chefs);
   const user = useSelector((state) => state.userReducer.user);
-  const loadUser = useSelector((state) => state.userReducer.loadUser);
 
   const dispatch = useDispatch();
 
   useEffect(() => {
-    if (!loadUser && user && user.role == "client") {
+    console.log(user);
+    if (user && user.role == "client") {
       dispatch(getAllApprovedChef());
     } else {
       dispatch(getAllChef());

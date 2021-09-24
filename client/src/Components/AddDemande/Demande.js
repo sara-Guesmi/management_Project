@@ -26,7 +26,7 @@ export default function Demande({ demande }) {
       setDueDate(demande.dueDate);
       setText(demande.text);
     }
-  }, []);
+  }, [demande, isEdit]);
 
   // /---------------------------------------------------------------------
   const handleOpen = () => {
@@ -35,7 +35,10 @@ export default function Demande({ demande }) {
 
   const handleClose = () => {
     setOpen(false);
+    setText(demande ? demande.text : "");
+    setDueDate(demande ? demande.dueDate : "");
   };
+
   const sendDemande = () => {
     if (!text || !dueDate) {
       alert("text and date are quired");

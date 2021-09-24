@@ -41,6 +41,7 @@ exports.getDemande = async (req, res) => {
       .send({ errors: [{ msg: "can not add this demande", error }] });
   }
 };
+
 exports.getDemandeChef = async (req, res) => {
   try {
     const demandes = await Demande.find({ id_chef: req.user._id });
@@ -105,16 +106,29 @@ exports.deleteDemande = async (req, res) => {
   }
 };
 
-exports.updateStatus = async (req, res) => {
+exports.updateStatusToPending = async (req, res) => {
   try {
     await Demande.updateOne(
       { _id: req.params.id_demande },
-      { $set: { approved: true } }
+      { $set: { approved: true, status: "pending" } }
     );
 
     res.status(200).send({ msg: "demande updated successfully" });
   } catch (error) {
-    console.log(error);
+    res
+      .status(400)
+      .send({ errors: [{ msg: "can not update this demande", error }] });
+  }
+};
+exports.updateStatusToDone = async (req, res) => {
+  try {
+    await Demande.updateOne(
+      { _id: req.params.id_demande },
+      { $set: { status: "done" } }
+    );
+
+    res.status(200).send({ msg: "demande updated successfully" });
+  } catch (error) {
     res
       .status(400)
       .send({ errors: [{ msg: "can not update this demande", error }] });
