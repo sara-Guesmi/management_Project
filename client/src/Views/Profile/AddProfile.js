@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useHistory, useParams } from "react-router-dom";
-import { postProfile, getChef } from "../../Redux/actions/user";
+import { postProfile, getChef, editProfile } from "../../Redux/actions/user";
 
 import "./AddProfile.css";
 import TextField from "@mui/material/TextField";
@@ -11,36 +11,54 @@ import DatePicker from "@mui/lab/DatePicker";
 
 const AddProfile = () => {
   const user = useSelector((state) => state.userReducer.user);
-  const [dateOfBirth, setdateOfBirth] = React.useState(null);
-
+  const isEditProfile = useSelector((state) => state.userReducer.isEditProfile);
+  const profile = useSelector((state) => state.userReducer.profile);
+  const [dateOfBirth, setdateOfBirth] = useState(null);
   const [newProfile, setNewProfile] = useState({});
 
   const dispatch = useDispatch();
   const { id_chef } = useParams();
   const history = useHistory();
+
   useEffect(() => {
     dispatch(getChef(user && user._id));
-    setNewProfile({
-      name: user && user.name,
-      lastName: user && user.lastName,
-      gender: "female",
-    });
-  }, []);
+    if (isEditProfile) {
+      setNewProfile({
+        name: user && user.name,
+        lastName: user && user.lastName,
+        gender: profile && profile.gender,
+        phoneNumber: profile && profile.phoneNumber,
+        domain: profile && profile.domain,
+        adresse: profile && profile.adresse,
+        departement: profile && profile.departement,
+      });
+      setdateOfBirth(profile && profile.dateOfBirth);
+    } else {
+      setNewProfile({
+        name: user && user.name,
+        lastName: user && user.lastName,
+        gender: "female",
+      });
+    }
+  }, [isEditProfile]);
 
   const handleChange = (e) => {
-    console.log(e.target.value);
     setNewProfile({ ...newProfile, [e.target.name]: e.target.value });
   };
 
-  const handleEditProfile = (e) => {
+  const handleAddProfile = (e) => {
     e.preventDefault();
 
-    dispatch(postProfile({ ...newProfile, dateOfBirth }, id_chef));
+    if (isEditProfile) {
+      dispatch(editProfile({ ...newProfile, dateOfBirth }, id_chef));
+    } else {
+      dispatch(postProfile({ ...newProfile, dateOfBirth }, id_chef));
+    }
     history.push("/dashbord");
   };
 
   return (
-    <form onSubmit={(e) => handleEditProfile(e)}>
+    <form onSubmit={(e) => handleAddProfile(e)}>
       <div className="container rounded bg-white mt-5 mb-5">
         <div className="row">
           <div className="col-md-3 border-right">
@@ -96,6 +114,7 @@ const AddProfile = () => {
                     name="phoneNumber"
                     required
                     onChange={handleChange}
+                    value={newProfile.phoneNumber}
                   />
                 </div>
                 <div className="col-md-12">
@@ -112,6 +131,7 @@ const AddProfile = () => {
                     className="form-control"
                     placeholder="enter address "
                     onChange={handleChange}
+                    value={newProfile.adresse}
                     name="adresse"
                   />
                 </div>
@@ -133,9 +153,9 @@ const AddProfile = () => {
                 <button
                   className="btn btn-primary profile-button"
                   type="button"
-                  onClick={handleEditProfile}
+                  onClick={handleAddProfile}
                 >
-                  Save Profile
+                  {isEditProfile ? "Edit Profile" : "Save Profile"}
                 </button>
               </div>
             </div>
@@ -155,6 +175,7 @@ const AddProfile = () => {
                   placeholder="Departement"
                   name="departement"
                   required
+                  value={newProfile.departement}
                   onChange={handleChange}
                 />
               </div>{" "}
@@ -167,6 +188,7 @@ const AddProfile = () => {
                   name="domain"
                   required
                   onChange={handleChange}
+                  value={newProfile.domain}
                 />
               </div>
             </div>

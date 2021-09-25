@@ -45,6 +45,9 @@
 .red {
   border-top: 3px solid var(--red);
 }
+.orange {
+  border-top: 3px solid var(--orange);
+}
 .box-demande h2 {
   color: var(--varyDarkBlue);
   font-weight: var(--weight3);

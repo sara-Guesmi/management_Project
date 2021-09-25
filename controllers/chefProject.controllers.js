@@ -40,3 +40,15 @@ exports.postProfile = async (req, res) => {
     res.status(400).send({ msg: "proofile is not saved ", error });
   }
 };
+
+// *******************************************
+exports.editProfile = async (req, res) => {
+  try {
+    const { id } = req.user;
+    await Profile.updateOne({ _id: req.params.id }, { $set: { ...req.body } });
+    res.status(200).send({ msg: "proofile edited", id });
+  } catch (error) {
+    console.log(error);
+    res.status(400).send({ msg: "proofile is not edited ", error });
+  }
+};

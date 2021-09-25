@@ -15,9 +15,10 @@ const Profile = () => {
   const loadUser = useSelector((state) => state.userReducer.loadUser);
   const user = useSelector((state) => state.userReducer.user);
   const profile = useSelector((state) => state.userReducer.profile);
+
   const dispatch = useDispatch();
   const { id_chef } = useParams();
-  console.log(profile);
+
   const id = id_chef || user._id;
 
   useEffect(() => {
@@ -38,4 +39,5 @@ const Profile = () => {
     <Redirect to={`/addProfile/${id}`} />
   );
 };
+
 export default Profile;

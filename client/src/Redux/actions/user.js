@@ -8,6 +8,7 @@ import {
   GET_ALL_CHEF,
   GET_CHEF,
   GET_ALL_CLIENT,
+  IS_EDIT_PROFILE,
 } from "../constants/user";
 
 import axios from "axios";
@@ -140,6 +141,21 @@ export const postProfile = (newProfile, id) => async (dispatch) => {
   }
 };
 
+export const editProfile = (updatedProfile, id) => async (dispatch) => {
+  dispatch({ type: LOAD_USER });
+  const config = {
+    headers: {
+      authorization: localStorage.getItem("token"),
+    },
+  };
+  try {
+    const { data } = await axios.put(`/api/chef/${id}`, updatedProfile, config);
+    dispatch(getChef(data.id));
+  } catch (error) {
+    dispatch({ type: FAIL_USER });
+  }
+};
+
 export const updateChefStatus = (id) => async (dispatch) => {
   dispatch({ type: LOAD_USER });
   const config = {
@@ -187,4 +203,8 @@ export const deleteUser = (id) => async (dispatch) => {
   } catch (error) {
     dispatch({ type: FAIL_USER });
   }
+};
+
+export const isEditProfile = (payload) => {
+  return { type: IS_EDIT_PROFILE, payload };
 };

@@ -3,19 +3,22 @@ import "./App.css";
 import Signup from "./Views/Auth/Signup";
 import Signin from "./Views/Auth/Signin";
 import Profile from "./Views/Profile/Profile";
-import PrivateRoute from "./router/PrivateRoute";
-
-import Navbar from "./Components/Navbar.js/Navbar";
-import Footer from "./Components/Footer/Footer";
+import ListDemande from "./Views/ListDemande/ListDemande";
+import AddProfile from "./Views/Profile/AddProfile";
 import NotFound from "./Views/NotFound/NotFound";
 import Dashbord from "./Views/Dashbord/Dashbord";
 
+import PrivateRoute from "./router/PrivateRoute";
+import ChefRoute from "./router/ChefRoute";
+
+import Navbar from "./Components/Navbar.js/Navbar";
+import Footer from "./Components/Footer/Footer";
+
 import { useEffect } from "react";
-import { currentUser } from "./Redux/actions/user";
 import { useDispatch } from "react-redux";
 import { Switch, Route } from "react-router-dom";
-import ListDemande from "./Views/ListDemande/ListDemande";
-import AddProfile from "./Views/Profile/AddProfile";
+
+import { currentUser } from "./Redux/actions/user";
 
 function App() {
   const dispatch = useDispatch();
@@ -34,7 +37,7 @@ function App() {
         <Route exact path="/" component={Signup} />
         <Route path="/signin" component={Signin} />
         <PrivateRoute path="/profile/:id_chef" component={Profile} />
-        <PrivateRoute path="/addProfile/:id_chef" component={AddProfile} />
+        <ChefRoute path="/addProfile/:id_chef" component={AddProfile} />
         <PrivateRoute path="/dashbord" component={Dashbord} />
         <PrivateRoute path="/listDemande" component={ListDemande} />
         <Route path="/*" component={NotFound} />

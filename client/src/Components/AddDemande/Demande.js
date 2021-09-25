@@ -14,7 +14,7 @@ export default function Demande({ demande }) {
   const [open, setOpen] = useState(false);
   const [dueDate, setDueDate] = useState("");
   const [text, setText] = useState("");
-
+  const today = new Date();
   const isEdit = useSelector((state) => state.demandeReducer.isEdit);
 
   const dispatch = useDispatch();
@@ -100,6 +100,7 @@ export default function Demande({ demande }) {
                         onChange={(newValue) => {
                           setDueDate(newValue);
                         }}
+                        minDate={today}
                         renderInput={(params) => <TextField {...params} />}
                       />
                     </LocalizationProvider>

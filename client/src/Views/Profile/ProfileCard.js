@@ -1,6 +1,16 @@
 import React from "react";
+
 import "./ProfileCard.css";
+import EditIcon from "@mui/icons-material/Edit";
+
+import { useDispatch, useSelector } from "react-redux";
+import { Link } from "react-router-dom";
+import { isEditProfile } from "../../Redux/actions/user";
+
 const ProfileCard = ({ profile }) => {
+  const user = useSelector((state) => state.userReducer.user);
+  const dispatch = useDispatch();
+
   return profile && profile ? (
     <div className="page-content page-container" id="page-content">
       <div className="padding">
@@ -30,8 +40,14 @@ const ProfileCard = ({ profile }) => {
                       {profile && profile.id_chef.name}{" "}
                       {profile && profile.id_chef.lastName}
                     </h6>
-                    <p>{profile && profile.domain}</p>{" "}
-                    <i className=" mdi mdi-square-edit-outline feather icon-edit m-t-10 f-16" />
+                    <p>{profile && profile.domain}</p>
+                    {user && user.role == "chef-projet" ? (
+                      <Link to={`/addProfile/${profile.id_chef._id}`}>
+                        <EditIcon
+                          onClick={() => dispatch(isEditProfile(true))}
+                        />
+                      </Link>
+                    ) : null}{" "}
                   </div>
                 </div>
                 <div className="col-sm-8">

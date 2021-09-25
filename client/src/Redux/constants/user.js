@@ -8,3 +8,4 @@ export const LOGOUT_USER = "LOGOUT_USER";
 export const GET_ALL_CHEF = "GET_ALL_CHEF";
 export const GET_ALL_CLIENT = "GET_ALL_CLIENT";
 export const GET_CHEF = "GET_CHEF";
+export const IS_EDIT_PROFILE = "IS_EDIT_PROFILE";

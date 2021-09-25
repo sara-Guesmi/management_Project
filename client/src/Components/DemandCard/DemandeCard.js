@@ -20,7 +20,8 @@ const DemandeCard = ({ demande }) => {
   const user = useSelector((state) => state.userReducer.user);
 
   const dispatch = useDispatch();
-
+  // ********************************************
+  // change the status of the demande from send to approved
   const handleChange = () => {
     if (demande.approved) {
       return alert("demande is already approved ");
@@ -31,7 +32,7 @@ const DemandeCard = ({ demande }) => {
       }
     }
   };
-
+  // delete the demande if it is not approved yet
   const handleDelete = () => {
     const confirmBox = window.confirm(
       "Do you really want to delete this Demande?"
@@ -40,25 +41,38 @@ const DemandeCard = ({ demande }) => {
       dispatch(deleteDemande(demande._id));
     }
   };
+  // the chef can approve the demande from pending to done
   const handleDone = () => {
     const confirmBox = window.confirm("Are You sure That you done that Taks?");
     if (confirmBox) {
       return dispatch(updateStatusToDone(demande._id));
     }
   };
-
+  // --------------------------------------------------------
   return (
     <div
-      class={
-        demande.approved
-          ? "box-demande box-down cyan"
-          : "box-demande box-down red"
+      className={
+        demande.status == "send"
+          ? "box-demande box-down red"
+          : demande.status == "pending"
+          ? "box-demande box-down orange"
+          : "box-demande box-down cyan"
       }
     >
       <h2>{demande.text}</h2>
-      <p>{demande.dueDate}</p>
+      <p>{demande.dueDate.toLocaleString("en-us", { weekday: "long" })}</p>
       <div className="approvedDemande">
-        {!demande.approved ? <PendingActionsIcon /> : <DoneIcon />}
+        {!demande.approved ? (
+          <div>
+            <PendingActionsIcon /> <p>Not accepted yet</p>{" "}
+          </div>
+        ) : (
+          <div>
+            {" "}
+            <DoneIcon />
+            <p>accepted Task</p>
+          </div>
+        )}
 
         {user && user.role == "client" ? (
           <div>

@@ -34,7 +34,7 @@ const ListDemande = () => {
   }, []);
 
   return (
-    <div>
+    <div className="list-demande-container">
       {loadDemandes ? (
         <CircularProgress />
       ) : errors ? (

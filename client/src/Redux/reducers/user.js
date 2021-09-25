@@ -8,6 +8,7 @@ import {
   GET_ALL_CHEF,
   GET_CHEF,
   GET_ALL_CLIENT,
+  IS_EDIT_PROFILE,
 } from "../constants/user";
 
 const initialState = {
@@ -17,6 +18,7 @@ const initialState = {
   errors: null,
   profile: null,
   clients: [],
+  isEditProfile: false,
 };
 
 const userReducer = (state = initialState, { type, payload }) => {
@@ -76,7 +78,8 @@ const userReducer = (state = initialState, { type, payload }) => {
       };
     case GET_ALL_CLIENT:
       return { ...state, loadUser: false, errors: false, clients: payload };
-
+    case IS_EDIT_PROFILE:
+      return { ...state, isEditProfile: payload };
     case "VIDE_ERRORS":
       return { ...state, errors: null };
     default:
