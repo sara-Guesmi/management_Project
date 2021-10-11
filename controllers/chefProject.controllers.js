@@ -45,6 +45,8 @@ exports.postProfile = async (req, res) => {
 exports.editProfile = async (req, res) => {
   try {
     const { id } = req.user;
+    console.log(req.body);
+
     await Profile.updateOne({ _id: req.params.id }, { $set: { ...req.body } });
     res.status(200).send({ msg: "proofile edited", id });
   } catch (error) {

@@ -12,11 +12,9 @@ const Notification = ({ error }) => {
   useEffect(() => {
     setTimeout(() => {
       setShow(false);
-    }, 5000);
-    return () => {
       dispatch(clearErrors());
-    };
-  }, [show, dispatch]);
+    }, 5000);
+  }, [dispatch]);
 
   return <div>{show && toast.error(error.msg)}</div>;
 };

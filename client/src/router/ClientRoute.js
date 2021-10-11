@@ -6,7 +6,7 @@ const ClientRoute = ({ component: Component, ...rest }) => {
   const token = localStorage.getItem("token");
   const user = useSelector((state) => state.userReducer.user);
 
-  if (token && user && user.role == "client") {
+  if (token && user && user.role === "client") {
     return <Route component={Component} {...rest} />;
   }
 

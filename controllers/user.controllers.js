@@ -52,6 +52,14 @@ exports.SignIn = async (req, res) => {
       res.status(400).send({ errors: [{ msg: "Bad Credential" }] });
       return;
     }
+    if (!searchUser.verified) {
+      res
+        .status(400)
+        .send({
+          errors: [{ msg: "account not verified yet contact trhe admin" }],
+        });
+    }
+
     // else create a key
     const token = jwt.sign(
       {

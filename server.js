@@ -1,3 +1,4 @@
+console.clear();
 const express = require("express");
 const connectDB = require("./config/connectDB");
 
@@ -14,7 +15,7 @@ app.use("/api/chef", require("./router/chefProject"));
 app.use("/api/admin", require("./router/admin"));
 app.use("/api/demande", require("./router/demandes"));
 
-const PORT = process.env.PORT || 5000;
+const PORT = process.env.PORT || 6000;
 
 app.listen(PORT, (err) =>
   err ? console.log(err) : console.log(`server is running on PORT ${PORT}`)

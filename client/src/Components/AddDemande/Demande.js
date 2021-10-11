@@ -1,25 +1,28 @@
 import React, { useEffect, useState } from "react";
+
 import Modal from "@material-ui/core/Modal";
-import "./Demande.css";
 import { TextField } from "@material-ui/core";
 import AdapterDateFns from "@mui/lab/AdapterDateFns";
 import LocalizationProvider from "@mui/lab/LocalizationProvider";
 import DatePicker from "@mui/lab/DatePicker";
+import EditIcon from "@mui/icons-material/Edit";
+import "./Demande.css";
+
 import { useDispatch, useSelector } from "react-redux";
 import { editDemande, postDemande } from "../../Redux/actions/demandes";
 import { useHistory, useParams } from "react-router";
-import EditIcon from "@mui/icons-material/Edit";
 
 export default function Demande({ demande }) {
   const [open, setOpen] = useState(false);
-  const [dueDate, setDueDate] = useState("");
+  const [dueDate, setDueDate] = useState(new Date());
   const [text, setText] = useState("");
-  const today = new Date();
   const isEdit = useSelector((state) => state.demandeReducer.isEdit);
+  const today = new Date();
 
   const dispatch = useDispatch();
   const history = useHistory();
   const { id_chef } = useParams();
+
   // ----------------------------------------------------------
   useEffect(() => {
     if (isEdit) {
@@ -91,11 +94,15 @@ export default function Demande({ demande }) {
                       required
                     />
                   </div>
-                  <div className="app-form-group z">
+                  <div
+                    className="app-form-group z"
+                    style={{ width: "200", height: "200px" }}
+                  >
                     <LocalizationProvider dateAdapter={AdapterDateFns}>
                       <DatePicker
                         required
                         label="Set the due Date"
+                        format="MM/dd/yyyy"
                         value={dueDate}
                         onChange={(newValue) => {
                           setDueDate(newValue);
@@ -113,7 +120,7 @@ export default function Demande({ demande }) {
                       onClick={() => sendDemande()}
                       className="app-form-button"
                     >
-                      SEND
+                      {isEdit ? "EDIT" : "SEND"}
                     </button>
                   </div>
                 </div>

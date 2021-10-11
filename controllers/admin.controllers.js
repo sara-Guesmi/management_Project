@@ -1,4 +1,5 @@
 const User = require("../models/User");
+const Demande = require("../models/Demande");
 
 exports.ChangeStatus = async (req, res) => {
   try {
@@ -52,6 +53,8 @@ exports.deleteUser = async (req, res) => {
     const { id } = req.params;
 
     await User.deleteOne({ _id: id });
+    await Demande.deleteMany({ id_client: id });
+    await Demande.deleteMany({ id_chef: id });
     res.status(200).send({ msg: "deleting  succ" });
   } catch (error) {
     res

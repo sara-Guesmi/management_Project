@@ -18,8 +18,8 @@ import Demande from "../AddDemande/Demande";
 
 const DemandeCard = ({ demande }) => {
   const user = useSelector((state) => state.userReducer.user);
-
   const dispatch = useDispatch();
+
   // ********************************************
   // change the status of the demande from send to approved
   const handleChange = () => {
@@ -61,6 +61,7 @@ const DemandeCard = ({ demande }) => {
     >
       <h2>{demande.text}</h2>
       <p>{demande.dueDate.toLocaleString("en-us", { weekday: "long" })}</p>
+      <h6>TO:{demande.id_chef.name + " "}</h6>
       <div className="approvedDemande">
         {!demande.approved ? (
           <div>

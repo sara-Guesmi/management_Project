@@ -48,13 +48,23 @@ const AddProfile = () => {
 
   const handleAddProfile = (e) => {
     e.preventDefault();
-
-    if (isEditProfile) {
-      dispatch(editProfile({ ...newProfile, dateOfBirth }, id_chef));
+    if (
+      newProfile.adresse &&
+      newProfile.domain &&
+      newProfile.domain &&
+      newProfile.gender &&
+      newProfile.departement &&
+      dateOfBirth
+    ) {
+      if (isEditProfile) {
+        dispatch(editProfile({ ...newProfile, dateOfBirth }, profile._id));
+      } else {
+        dispatch(postProfile({ ...newProfile, dateOfBirth }, id_chef));
+      }
+      history.push("/dashbord");
     } else {
-      dispatch(postProfile({ ...newProfile, dateOfBirth }, id_chef));
+      alert("all fields are  required");
     }
-    history.push("/dashbord");
   };
 
   return (
@@ -80,7 +90,7 @@ const AddProfile = () => {
               </div>
               <div className="row mt-2">
                 <div className="col-md-6">
-                  <label className="labels">Name</label>
+                  <label className="labels">Name*</label>
                   <input
                     type="text"
                     className="form-control"
@@ -92,7 +102,7 @@ const AddProfile = () => {
                   />
                 </div>
                 <div className="col-md-6">
-                  <label className="labels">Surname</label>
+                  <label className="labels">Surname*</label>
                   <input
                     type="text"
                     className="form-control"
@@ -106,9 +116,9 @@ const AddProfile = () => {
               </div>
               <div className="row mt-3">
                 <div className="col-md-12">
-                  <label className="labels">phoneNumber</label>
+                  <label className="labels">phoneNumber*</label>
                   <input
-                    type="text"
+                    type="number"
                     className="form-control"
                     placeholder="enter phone number"
                     name="phoneNumber"
@@ -118,14 +128,14 @@ const AddProfile = () => {
                   />
                 </div>
                 <div className="col-md-12">
-                  <label className="labels">gender</label>
+                  <label className="labels">gender*</label>
                   <select name="gender" id="" onChange={handleChange}>
                     <option value="female">female</option>
                     <option value="male">male</option>
                   </select>
                 </div>
                 <div className="col-md-12">
-                  <label className="labels">adresse</label>
+                  <label className="labels">adresse*</label>
                   <input
                     type="text"
                     className="form-control"
@@ -139,7 +149,7 @@ const AddProfile = () => {
               <div className="col-md-12 m-3">
                 <LocalizationProvider dateAdapter={AdapterDateFns}>
                   <DatePicker
-                    label="Date of Birth"
+                    label="Date of Birth*"
                     value={dateOfBirth}
                     onChange={(newValue) => {
                       setdateOfBirth(newValue);
@@ -168,7 +178,7 @@ const AddProfile = () => {
               <br />
               <br />
               <div className="col-md-12">
-                <label className="labels">departement</label>
+                <label className="labels">departement*</label>
                 <input
                   type="text"
                   className="form-control"
@@ -180,7 +190,7 @@ const AddProfile = () => {
                 />
               </div>{" "}
               <div className="col-md-12">
-                <label className="labels">domain</label>
+                <label className="labels">domain*</label>
                 <input
                   type="text"
                   className="form-control"
