@@ -52,9 +52,9 @@ const DemandeCard = ({ demande }) => {
   return (
     <div
       className={
-        demande.status == "send"
+        demande.status === "send"
           ? "box-demande box-down red"
-          : demande.status == "pending"
+          : demande.status === "pending"
           ? "box-demande box-down orange"
           : "box-demande box-down cyan"
       }
@@ -75,7 +75,7 @@ const DemandeCard = ({ demande }) => {
           </div>
         )}
 
-        {user && user.role == "client" ? (
+        {user && user.role === "client" ? (
           <div>
             {" "}
             {!demande.approved ? (
@@ -83,7 +83,7 @@ const DemandeCard = ({ demande }) => {
                 <Demande demande={demande} />
                 <DeleteIcon onClick={handleDelete} />
               </div>
-            ) : demande.status == "done" ? (
+            ) : demande.status === "done" ? (
               <div>
                 <DeleteIcon onClick={handleDelete} />
                 <p>{demande.status}</p>
@@ -101,11 +101,11 @@ const DemandeCard = ({ demande }) => {
               onChange={handleChange}
               inputProps={{ "aria-label": "controlled" }}
             />
-            {demande.status == "done" ? (
+            {demande.status === "done" ? (
               <div>
                 <p>Done </p> <DeleteIcon onClick={handleDelete} />
               </div>
-            ) : demande.status == "pending" ? (
+            ) : demande.status === "pending" ? (
               <div>
                 <p>pending</p>
                 <div className="done-task">

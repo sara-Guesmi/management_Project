@@ -1,7 +1,3 @@
-.bg-white {
-  background-color: #fff;
-}
-
 .navbar-brand {
   padding: 23.5px 20px;
   font-size: 18px;
@@ -16,17 +12,18 @@
   margin: 0px 3px;
   text-align: center;
   border-radius: 5px;
-  font-size: 16px;
-  color: grey;
+  font-size: 20px;
+  color: white;
   position: static;
 }
 
 .nav-item.active {
-  color: #ef5350;
+  color: #6163ff;
 }
 
 .nav-item:hover {
-  color: #ef5350;
+  color: #6163ff;
+  text-decoration: underline;
 }
 
 a {
@@ -106,4 +103,8 @@ a {
     position: relative !important;
     padding: 20px;
   }
+}
+#logout-btn {
+  background: #6163ff;
+  color: white;
 }

@@ -1,31 +1,39 @@
-import React, { useState } from "react";
-import "./Signin.css";
+import React from "react";
+
 import { useDispatch, useSelector } from "react-redux";
 import { login } from "../../Redux/actions/user";
 import { Link } from "react-router-dom";
+import { useForm } from "react-hook-form";
+
+import Logo from "../../Components/layout/partials/Logo";
 import Notification from "../../Components/Notification/Notification";
+
+import "./Signin.css";
+
 const Signin = ({ history }) => {
-  const [user, setUser] = useState({ email: "", password: "" });
+  const {
+    register,
+    handleSubmit,
+    watch,
+    formState: { errors },
+  } = useForm();
+  const errorsR = useSelector((state) => state.userReducer.errors);
+
   const dispatch = useDispatch();
-  const errors = useSelector((state) => state.userReducer.errors);
 
-  const handleChange = (e) => {
-    setUser({ ...user, [e.target.name]: e.target.value });
-  };
+  const onSubmit = (data) => {
+    // e.preventDefault();
 
-  const handleUser = (e) => {
-    e.preventDefault();
-    dispatch(login(user, history));
-    setUser({ email: "", password: "" });
+    dispatch(login(data, history));
+    watch({});
   };
 
   return (
     <div style={{ position: "relative" }}>
-      <div style={{ position: "absolute", zIndex: 1 }}>
-        {errors && errors
-          ? errors.map((el, i) => <Notification error={el} key={i} />)
-          : null}
-      </div>
+      {errorsR &&
+        errorsR &&
+        errorsR.map((el, i) => <Notification error={el} key={i} />)}
+      <div style={{ position: "absolute", zIndex: 1 }}></div>
       <div className="login-root">
         <div
           className="box-root flex-flex flex-direction--column"
@@ -128,18 +136,37 @@ const Signin = ({ history }) => {
             <div className="formbg-outer">
               <div className="formbg">
                 <div className="formbg-inner padding-horizontal--48">
-                  <span className="padding-bottom--15">Create an account</span>
-                  <form id="stripe-login" onSubmit={handleUser}>
+                  <div className="d-flex">
+                    <Logo />
+                    <span className="padding-bottom--15">
+                      Create an account
+                    </span>
+                  </div>
+
+                  <form id="stripe-login" onSubmit={handleSubmit(onSubmit)}>
                     <div className="field padding-bottom--24">
                       <label htmlFor="email">Email</label>
                       <input
                         required
                         name="email"
-                        onChange={handleChange}
-                        value={user.email}
-                        autoComplete="username"
+                        // onChange={handleChange}
+                        {...register("email", {
+                          required: true,
+                          pattern: /\S+@\S+\.\S+/,
+                        })}
+                        value={watch.email}
+                        autoComplete="email"
                       />
+                      <p>
+                        {" "}
+                        {errors.email && (
+                          <span>
+                            This field is required and should be an email
+                          </span>
+                        )}
+                      </p>
                     </div>
+
                     <div className="field padding-bottom--24">
                       <div className="grid--50-50">
                         <label htmlFor="password">Password</label>
@@ -148,18 +175,28 @@ const Signin = ({ history }) => {
                         type="password"
                         name="password"
                         required
-                        onChange={handleChange}
-                        value={user.password}
+                        // onChange={handleChange}
+                        {...register("password", {
+                          required: true,
+                          minLength: 6,
+                          maxLength: 20,
+                        })}
                         autoComplete="current-password"
+                        value={watch.password}
                       />{" "}
-                      <div className="reset-pass">Forgot your password?</div>
+                      <p>
+                        {" "}
+                        {errors.password && (
+                          <span>length password should be between 6 & 20</span>
+                        )}
+                      </p>{" "}
                     </div>
                     <div className="field padding-bottom--24">
                       <input
                         type="submit"
                         name="submit"
                         defaultValue="Continue"
-                        onClick={handleUser}
+                        className="primary"
                       />
                     </div>
                   </form>
@@ -167,13 +204,8 @@ const Signin = ({ history }) => {
               </div>
               <div className="footer-link padding-top--24">
                 <span>
-                  Don't have an account? <Link to="/">Sign up</Link>{" "}
+                  Don't have an account? <Link to="/signup">Sign up</Link>
                 </span>
-                <div className="listing padding-top--24 padding-bottom--24 flex-flex center-center">
-                  <span>© Project</span>
-                  <span>Contact</span>
-                  <span>Privacy &amp; terms</span>
-                </div>
               </div>
             </div>
           </div>

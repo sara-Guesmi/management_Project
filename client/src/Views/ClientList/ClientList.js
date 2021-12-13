@@ -15,21 +15,21 @@ const ClientList = () => {
   const dispatch = useDispatch();
 
   useEffect(() => {
-    if (user && user.role == "admin") {
+    if (user && user.role === "admin") {
       dispatch(getAllClient());
     }
   }, [dispatch, user]);
 
-  return user && user.role == "admin" ? (
+  return user && user.role === "admin" ? (
     <div>
       {loadUser ? (
         <CircularProgress />
       ) : errors ? (
         <h2>errors to fetch user</h2>
-      ) : client && client.length == 0 ? null : (
-        <div>
+      ) : client && client.length === 0 ? null : (
+        <div className="container py-5">
           <h2 className="title-chefProject">Client List</h2>{" "}
-          <div className="listChef">
+          <div className="row pb-5 mb-4">
             {client && client.map((el) => <Chef chef={el} key={el._id} />)}
           </div>
         </div>

@@ -10,7 +10,6 @@ import DeleteOutlineOutlined from "@mui/icons-material/DeleteOutlineOutlined";
 
 import {
   deleteUser,
-  getChef,
   updateBannedUser,
   updateChefStatus,
 } from "../../Redux/actions/user";
@@ -45,53 +44,54 @@ const Chef = ({ chef }) => {
       return dispatch(deleteUser(chef._id));
     }
   };
+
   // ------------------------------------------
   return (
-    <div className="col-12 col-sm-6 col-md-4 col-lg-3 m-3">
-      {user && user.role == "admin" ? (
-        <div className="our-team">
-          <div className="picture">
-            <img
-              className="img-fluid"
-              src="https://picsum.photos/130/130?image=1027"
-              alt="profile"
-            />
+    <div className="col-lg-3 col-md-6 mb-4 mb-lg-0">
+      {/* Card*/}
+      <div className="card shadow-sm border-0 rounded">
+        <div className="card-body p-0">
+          <img
+            src="https://bootstrapious.com/i/snippets/sn-cards/profile-1_dewapk.jpg"
+            alt=""
+            className="w-100 card-img-top"
+          />
+          <div className="p-4">
+            <h5 className="mb-0">{chef.name}</h5>
+            <p className="small text-muted">Email:{chef.email}</p>
+            {user && user.role === "admin" ? (
+              <ul className="social mb-0 list-inline mt-3">
+                <li className="list-inline-item m-0">
+                  {!chef.verified ? (
+                    <LibraryAddCheckOutlinedIcon onClick={handleStatus} />
+                  ) : (
+                    <CheckBoxIcon />
+                  )}
+                </li>
+                <li className="list-inline-item m-0">
+                  {!chef.banned ? (
+                    <BlockIcon
+                      style={{ fill: "green" }}
+                      onClick={handleBanned}
+                    />
+                  ) : (
+                    <BlockIcon style={{ fill: "red" }} onClick={handleBanned} />
+                  )}
+                </li>
+                <li className="list-inline-item m-0">
+                  <DeleteOutlineOutlined onClick={handleDelete} />
+                </li>
+              </ul>
+            ) : (
+              <ul>
+                <Link to={`/profile/${chef._id}`}>
+                  <button>Details & Contact</button>
+                </Link>
+              </ul>
+            )}
           </div>
-
-          <div className="team-content">
-            <h3 className="name">{chef.name}</h3>
-            <h4 className="title">{chef.lastName}</h4>
-            <h4 className="title">{chef.email}</h4>
-          </div>
-          {!chef.verified ? (
-            <LibraryAddCheckOutlinedIcon onClick={handleStatus} />
-          ) : (
-            <CheckBoxIcon />
-          )}
-          {!chef.banned ? (
-            <BlockIcon style={{ fill: "green" }} onClick={handleBanned} />
-          ) : (
-            <BlockIcon style={{ fill: "red" }} onClick={handleBanned} />
-          )}
-          <DeleteOutlineOutlined onClick={handleDelete} />
         </div>
-      ) : (
-        <Link to={`/profile/${chef._id}`}>
-          <div className="our-team">
-            <div className="picture">
-              <img
-                className="img-fluid"
-                src="https://picsum.photos/130/130?image=1027"
-                alt="profile"
-              />
-            </div>
-            <div className="team-content">
-              <h3 className="name">{chef.name}</h3>
-              <h4 className="title">{chef.lastName}</h4>
-            </div>
-          </div>
-        </Link>
-      )}
+      </div>
     </div>
   );
 };

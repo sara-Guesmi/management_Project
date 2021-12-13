@@ -12,16 +12,16 @@
   letter-spacing: 1.4px;
 }
 
-.background {
+/* .background {
   display: flex;
   min-height: 100vh;
-}
+} */
 
-.container {
-  /* flex: 0 1 700px; */
+/* .container {
+  flex: 0 1 700px;
   margin: auto;
   padding: 10px;
-}
+} */
 
 .screen {
   position: relative;
@@ -41,7 +41,9 @@
   box-shadow: 0 20px 40px rgba(0, 0, 0, 0.4);
   z-index: -1;
 }
-
+.close:hover {
+  cursor: pointer;
+}
 .screen-header {
   display: flex;
   align-items: center;
@@ -149,7 +151,6 @@
   border-bottom: 1px solid #666;
   color: black;
   font-size: 14px;
-  text-transform: uppercase;
   outline: none;
   transition: border-color 0.2s;
 }

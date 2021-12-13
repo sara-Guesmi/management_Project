@@ -23,7 +23,7 @@ const ListDemande = () => {
   const dispatch = useDispatch();
 
   useEffect(() => {
-    if (user && user.role == "client") {
+    if (user && user.role === "client") {
       dispatch(getDemandesClient());
     } else {
       dispatch(getDemandesChef());
@@ -31,7 +31,7 @@ const ListDemande = () => {
   }, [dispatch, user]);
   useEffect(() => {
     dispatch(isEdit(true));
-  }, []);
+  }, [dispatch]);
 
   return (
     <div className="list-demande-container">
@@ -39,12 +39,15 @@ const ListDemande = () => {
         <CircularProgress />
       ) : errors ? (
         <h1>error to fetch the demandes</h1>
-      ) : demandes && demandes.length == 0 && user && user.role == "client" ? (
+      ) : demandes &&
+        demandes.length === 0 &&
+        user &&
+        user.role === "client" ? (
         <h1 className="demande-title">You did post no demande yet</h1>
       ) : demandes &&
-        demandes.length == 0 &&
+        demandes.length === 0 &&
         user &&
-        user.role == "chef-projet" ? (
+        user.role === "chef-projet" ? (
         <h1 className="demande-title">You did not recieve any demande yet</h1>
       ) : (
         <div className="list-demandes">

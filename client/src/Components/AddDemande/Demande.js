@@ -60,7 +60,7 @@ export default function Demande({ demande }) {
   const body = (
     <div>
       <div className="background">
-        <div className="container">
+        <div className="">
           <div className="screen">
             <div className="screen-header">
               <div className="screen-header-left">
@@ -68,10 +68,14 @@ export default function Demande({ demande }) {
                 <div className="screen-header-button maximize" />
                 <div className="screen-header-button minimize" />
               </div>
-              <div onClick={handleClose} className="screen-header-right p-3">
+              <div
+                onClick={handleClose}
+                className="screen-header-right p-3 close"
+              >
+                {/* <div className="screen-header-ellipsis" />
                 <div className="screen-header-ellipsis" />
-                <div className="screen-header-ellipsis" />
-                <div className="screen-header-ellipsis" />
+                <div className="screen-header-ellipsis" /> */}
+                X
               </div>
             </div>
             {/* <hr /> */}

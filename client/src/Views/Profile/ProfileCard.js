@@ -21,7 +21,7 @@ const ProfileCard = ({ profile }) => {
                 <div className="col-sm-4 bg-c-lite-green user-profile">
                   <div className="card-block text-center text-white">
                     <div className="m-b-25">
-                      {profile && profile.gender == "female" ? (
+                      {profile && profile.gender === "female" ? (
                         <img
                           width="20%"
                           src="https://cdn1.iconfinder.com/data/icons/avatar-11/76/5-512.png"
@@ -41,13 +41,13 @@ const ProfileCard = ({ profile }) => {
                       {profile && profile.id_chef.lastName}
                     </h6>
                     <p>{profile && profile.domain}</p>
-                    {user && user.role == "chef-projet" ? (
+                    {user && user.role === "chef-projet" && (
                       <Link to={`/addProfile/${profile.id_chef._id}`}>
                         <EditIcon
                           onClick={() => dispatch(isEditProfile(true))}
                         />
                       </Link>
-                    ) : null}{" "}
+                    )}{" "}
                   </div>
                 </div>
                 <div className="col-sm-8">
@@ -91,7 +91,6 @@ const ProfileCard = ({ profile }) => {
                           href="#!"
                           data-toggle="tooltip"
                           data-placement="bottom"
-                          title
                           data-original-title="facebook"
                           data-abc="true"
                         >
@@ -106,7 +105,6 @@ const ProfileCard = ({ profile }) => {
                           href="#!"
                           data-toggle="tooltip"
                           data-placement="bottom"
-                          title
                           data-original-title="twitter"
                           data-abc="true"
                         >
@@ -121,7 +119,6 @@ const ProfileCard = ({ profile }) => {
                           href="#!"
                           data-toggle="tooltip"
                           data-placement="bottom"
-                          title
                           data-original-title="instagram"
                           data-abc="true"
                         >

@@ -30,12 +30,12 @@ const Profile = () => {
     <div className="profile-container">
       {loadUser ? (
         <CircularProgress />
-      ) : user && user.role == "client" ? (
+      ) : user && user.role === "client" ? (
         <div>
           <Demande onClick={dispatch(isEdit(false))} />
           <ProfileCard profile={profile} />
         </div>
-      ) : user && user.role == "client" && !profile ? (
+      ) : user && user.role === "client" && !profile ? (
         <h2>Profile is not created yet</h2>
       ) : !loadUser && profile && profile ? (
         <ProfileCard profile={profile} />

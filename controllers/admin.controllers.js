@@ -19,6 +19,7 @@ exports.ChangeStatus = async (req, res) => {
     res.status(400).send({ errors: [{ msg: "can not change the user" }] });
   }
 };
+
 exports.BannUser = async (req, res) => {
   try {
     //   get user id clicked

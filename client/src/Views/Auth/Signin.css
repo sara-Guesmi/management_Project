@@ -98,6 +98,7 @@ a {
 }
 .padding-bottom--15 {
   padding-bottom: 15px;
+  margin-left: 4%;
 }
 
 .flex-justifyContent--center {
@@ -138,7 +139,12 @@ label {
   grid-template-columns: 50% 50%;
   align-items: center;
 }
-
+.field:hover label {
+  text-decoration: underline #5469d4;
+}
+.field label {
+  font-size: 120%;
+}
 .field input {
   font-size: 16px;
   line-height: 28px;
@@ -183,7 +189,7 @@ a.ssolink {
   font-weight: 600;
 }
 .footer-link span {
-  font-size: 14px;
+  font-size: 20px;
   text-align: center;
 }
 .listing a {
@@ -227,4 +233,8 @@ a.ssolink {
   100% {
     transform: translateX(0px);
   }
+}
+select {
+  padding: 2%;
+  border: #dee2e6 2px solid;
 }

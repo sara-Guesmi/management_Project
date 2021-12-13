@@ -13,14 +13,14 @@ const Dashbord = () => {
   const user = useSelector((state) => state.userReducer.user);
   const dispatch = useDispatch();
   useEffect(() => {
-    if (user && user.role == "chef-projet") {
+    if (user && user.role === "chef-projet") {
       dispatch(getChef(user && user._id));
     }
     dispatch(getAllChef());
     dispatch(getAllApprovedChef());
-  }, []);
+  }, [dispatch, user]);
 
-  if (user && user.role == "chef-projet") {
+  if (user && user.role === "chef-projet") {
     return (
       <div>
         <Profile user={user} />

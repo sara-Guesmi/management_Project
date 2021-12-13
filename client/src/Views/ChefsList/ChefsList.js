@@ -14,18 +14,17 @@ const ChefsList = () => {
   const dispatch = useDispatch();
 
   useEffect(() => {
-    console.log(user);
-    if (user && user.role == "client") {
+    if (user && user.role === "client") {
       dispatch(getAllApprovedChef());
     } else {
       dispatch(getAllChef());
     }
-  }, [dispatch]);
+  }, [dispatch, user]);
 
   return (
-    <div>
+    <div className="container py-5">
       <h2 className="title-chefProject">Chef Project List</h2>{" "}
-      <div className="listChef">
+      <div className="row pb-5 mb-4">
         {chefs && chefs.map((el) => <Chef chef={el} key={el._id} />)}
       </div>
       <ClientList />

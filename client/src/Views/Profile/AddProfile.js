@@ -11,7 +11,7 @@ import DatePicker from "@mui/lab/DatePicker";
 
 const AddProfile = () => {
   const user = useSelector((state) => state.userReducer.user);
-  const isEditProfile = useSelector((state) => state.userReducer.isEditProfile);
+  const [isEditProfile, setisEditProfile] = useState(false);
   const profile = useSelector((state) => state.userReducer.profile);
   const [dateOfBirth, setdateOfBirth] = useState(null);
   const [newProfile, setNewProfile] = useState({});
@@ -22,6 +22,12 @@ const AddProfile = () => {
 
   useEffect(() => {
     dispatch(getChef(user && user._id));
+    if (profile) {
+      setisEditProfile(true);
+    }
+  }, [dispatch, user, profile]);
+
+  useEffect(() => {
     if (isEditProfile) {
       setNewProfile({
         name: user && user.name,
@@ -40,7 +46,7 @@ const AddProfile = () => {
         gender: "female",
       });
     }
-  }, [isEditProfile]);
+  }, [isEditProfile, user, profile]);
 
   const handleChange = (e) => {
     setNewProfile({ ...newProfile, [e.target.name]: e.target.value });
@@ -77,6 +83,7 @@ const AddProfile = () => {
                 className="rounded-circle mt-5"
                 width="150px"
                 src="https://st3.depositphotos.com/15648834/17930/v/600/depositphotos_179308454-stock-illustration-unknown-person-silhouette-glasses-profile.jpg"
+                alt="profile"
               />
               <span className="font-weight-bold">{user && user.name}</span>
               <span className="text-black-50">{user && user.email}</span>
